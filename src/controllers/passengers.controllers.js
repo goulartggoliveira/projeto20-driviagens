@@ -9,4 +9,16 @@ async function create(req, res){
     res.sendStatus(httpStatus.CREATED)
 }
 
-export const passengerController = {create}
+async function getPassengersTravel(req, res){
+    const { name } = req.query
+    const passenger = await passengersService.getPassengersTravel(name)
+
+    const formattedTravels = passenger.map(travel => {
+        return {...travel, travels: parseInt(travel.travels)}
+    })
+
+    res.send(formattedTravels)
+}
+
+export const passengerController = {create,
+getPassengersTravel}

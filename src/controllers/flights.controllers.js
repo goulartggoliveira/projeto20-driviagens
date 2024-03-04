@@ -10,4 +10,11 @@ async function create(req, res){
     res.sendStatus(httpStatus.CREATED)
 }
 
-export const flightController = { create }
+async function getFlights(req, res){
+    const { origin, destination } = req.query
+
+    const flights = await flightServices.getFlights(origin, destination)
+    res.send(flights)
+}
+
+export const flightController = { create, getFlights }

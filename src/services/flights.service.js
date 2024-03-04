@@ -18,6 +18,14 @@ async function create( origin, destination, date){
     await flightsRepository.create(origin, destination, date)
 }
 
+
+async function getFlights(origin, destination){
+    const flights = await flightsRepository.getFlights(origin, destination)
+    return flights
+    
+}
+
 export const flightServices = {
-    create
+    create,
+    getFlights
 }

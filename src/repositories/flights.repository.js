@@ -12,7 +12,34 @@ async function findById(id) {
     return flight.rows[0]
 }
 
+async function getFlights(origin, destination){
+    const a = []
+    let q = `
+    SELECT f.id, c1.name AS origin, c2.name AS destination, f.date 
+	FROM flights f
+	JOIN cities c1 ON origin = c1.id
+	JOIN cities c2 ON destination = c2.id
+	WHERE 1=1
+    `
+
+    if (origin) {
+        a.push(origin)
+        q += `AND c1.name=$${a.length} `
+    }
+
+    if (destination) {
+        a.push(destination)
+        q += `AND c2.name=$${a.length} `
+    }
+
+    const result = await db.query(q, a)
+    return result.rows
+
+}
+
+
 export const flightsRepository = {
     create,
-    findById
+    findById,
+    getFlights
 };

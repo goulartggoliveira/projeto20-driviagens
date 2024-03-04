@@ -14,14 +14,14 @@ function sameCity() {
 
 function invalidFlightDate() {
     return {
-        type: "invalidFlightDate",
+        type: "validationError",
         message: `Flight date is not correct!`
     }
 }
 
 function equalCities() {
     return {
-        type: "equalCities",
+        type: "conflict",
         message: `There are the same city!`
     }
 }
@@ -33,10 +33,18 @@ function notFound(resource = "Item") {
     }
 }
 
+function badResult() {
+    return {
+        type: "badResult",
+        message: `Bad result error!`
+    }
+}
+
 export const errors = {
     validationError,
     sameCity,
     invalidFlightDate,
     equalCities,
-    notFound
+    notFound,
+    badResult
 }
