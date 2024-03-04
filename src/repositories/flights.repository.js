@@ -32,6 +32,8 @@ async function getFlights(origin, destination){
         q += `AND c2.name=$${a.length} `
     }
 
+    q += "ORDER BY f.date;"
+
     const result = await db.query(q, a)
     return result.rows
 

@@ -1,5 +1,6 @@
 import httpStatus from "http-status"
 import { flightServices } from "../services/flights.service.js"
+import dayjs from "dayjs"
 
 
 
@@ -14,7 +15,13 @@ async function getFlights(req, res){
     const { origin, destination } = req.query
 
     const flights = await flightServices.getFlights(origin, destination)
-    res.send(flights)
+
+    const FlightsFormat = flights.map(flight => {
+        const date = dayjs(flight.date).format("DD-MM-YYYY")
+        return { ...flight, date }
+    })
+
+    res.send(FlightsFormat)
 }
 
 export const flightController = { create, getFlights }
